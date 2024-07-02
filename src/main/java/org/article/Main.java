@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Main {
 
     static List<Article> articles = new ArrayList<>();
+    static Article foundArticle;
+
+    static int id;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -64,14 +67,7 @@ public class Main {
 
                 int id = Integer.parseInt(cmd.split(" ")[2]);
 
-                Article foundArticle = null;
-
-                for (Article article : articles) {
-                    if (article.getId() == id) {
-                        foundArticle = article;
-                        break;
-                    }
-                }
+                Article foundArticle = getArticleById(id);
 
                 if (foundArticle == null) {
                     System.out.println("해당 게시글은 없습니다");
@@ -87,14 +83,7 @@ public class Main {
 
                 int id = Integer.parseInt(cmd.split(" ")[2]);
 
-                Article foundArticle = null;
-
-                for (Article article : articles) {
-                    if (article.getId() == id) {
-                        foundArticle = article;
-                        break;
-                    }
-                }
+                Article foundArticle = getArticleById(id);
 
                 if (foundArticle == null) {
                     System.out.println("해당 게시글은 없습니다");
@@ -107,14 +96,7 @@ public class Main {
 
                 int id = Integer.parseInt(cmd.split(" ")[2]);
 
-                Article foundArticle = null;
-
-                for (Article article : articles) {
-                    if (article.getId() == id) {
-                        foundArticle = article;
-                        break;
-                    }
-                }
+                Article foundArticle = getArticleById(id);
 
                 if (foundArticle == null) {
                     System.out.println("해당 게시글은 없습니다");
@@ -140,6 +122,22 @@ public class Main {
         System.out.println("==프로그램 종료==");
         sc.close();
 
+    }
+
+    public static Article getArticleById(int id) {
+//        for(int i = 0 ; i < articles.size() ; i++) {
+//            Article article = articles.get(i);
+//            if(article.getId() == id) {
+//                return article;
+//            }
+//        }
+
+        for(Article article : articles) {
+            if(article.getId() == id) {
+                return article;
+            }
+        }
+        return null;
     }
 
     public static void makeTestData() {
