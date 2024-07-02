@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    static List<Article> articles = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("==프로그램 시작==");
 
-        int lastArticleId = 0;
-        List<Article> articles = new ArrayList<>();
+        makeTestData();
+
+        int lastArticleId = 3;
 
         while (true) {
             System.out.print("명령어) ");
@@ -137,6 +141,13 @@ public class Main {
         sc.close();
 
     }
+
+    public static void makeTestData() {
+        System.out.println("테스트 데이터 생성");
+        articles.add(new Article(1, "2024-05-02 12:12:12", "2024-05-02 12:12:12", "제목1", "내용1"));
+        articles.add(new Article(2, "2024-06-02 12:12:12", "2024-06-02 12:12:12", "제목2", "내용2"));
+        articles.add(new Article(3, "2024-07-02 12:12:12", "2024-07-02 12:12:12", "제목3", "내용3"));
+    }
 }
 
 class Article {
@@ -194,4 +205,3 @@ class Article {
         this.body = body;
     }
 }
-
