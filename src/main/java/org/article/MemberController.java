@@ -54,7 +54,7 @@ public class MemberController {
         lastmemberId++;
     }
 
-    private boolean isJoinableLoginId (String loginId){
+    private boolean isJoinableLoginId(String loginId) {
         for (Member member : members) {
             if (member.getLoginId().equals(loginId)) {
                 return false;
@@ -63,7 +63,7 @@ public class MemberController {
         return true;
     }
 
-    public void makeTestData () {
+    public void makeTestData() {
         System.out.println("회원 테스트 데이터 생성");
         members.add(new Member(1, Util.getNow(), "qwe", "123", "name1"));
         members.add(new Member(2, Util.getNow(), "asd", "123", "name2"));
