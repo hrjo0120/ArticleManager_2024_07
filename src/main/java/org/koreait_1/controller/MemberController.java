@@ -1,12 +1,16 @@
-package org.article;
+package org.koreait_1.controller;
+
+import org.koreait_1.dto.Member;
+import org.koreait_1.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MemberController {
-    Scanner sc;
-    List<Member> members;
+public class MemberController extends Controller {
+    private Scanner sc;
+    private List<Member> members;
+    private String cmd;
 
     private int lastmemberId = 3;
 
@@ -15,7 +19,20 @@ public class MemberController {
         members = new ArrayList<>();
     }
 
-    public void doJoin() {
+    public void doAction(String cmd, String actionMethodName) {
+        this.cmd = cmd;
+
+        switch (actionMethodName) {
+            case "join":
+                doJoin();
+                break;
+            default:
+                System.out.println("명령어 확인 (actionMethodName) 오류");
+                break;
+        }
+    }
+
+    private void doJoin() {
         System.out.println("== 회원 가입 ==");
         int id = lastmemberId + 1;
         String regDate = Util.getNow();
