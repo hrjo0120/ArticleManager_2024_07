@@ -8,6 +8,7 @@ public class Main {
 
     static List<Article> articles = new ArrayList<>();
     static Article foundArticle;
+    static List<Member> members = new ArrayList<>();
 
     static int id;
 
@@ -15,8 +16,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("==프로그램 시작==");
 
+        makeMemberTestData();
         makeTestData();
 
+        int memberId = 3;
         int lastArticleId = 3;
 
         while (true) {
@@ -31,7 +34,45 @@ public class Main {
                 break;
             }
 
-            if (cmd.equals("article write")) {
+            if (cmd.equals("join")) {
+                System.out.println("== 회원 가입 ==");
+                int id = memberId + 1;
+                String regDate = Util.getNow();
+                String loginId = null;  //여기서 작성하는 이유? while문 안에 있으면 나중에 조립할때 문제가 생긴다.
+                // ID 중복확인 - 기존에 있는거랑 확인
+                while (true) {
+                    System.out.print("아이디를 입력해주세요: ");
+                    loginId = sc.nextLine().trim();
+                    if(isJoinableLoginId(loginId) == false) {
+                        System.out.println("이미 사용 중인 ID 입니다.");
+                        System.out.println("다시 입력해주세요.");
+                        continue;
+                    }
+                    System.out.println("사용가능한 ID 입니다.");
+                    break;
+                }
+                String loginPw = null;
+                // 비밀번호 확인 - 내가 입력한 값끼리 확인
+                while (true) {
+                    System.out.print("비밀번호 : ");
+                    loginPw = sc.nextLine();
+                    System.out.print("비밀번호 확인 : ");
+                    String loginPwConfirm = sc.nextLine();
+
+                    if(loginPw.equals(loginPwConfirm) == false) {
+                        System.out.println("비밀번호가 일치하지 않습니다.");
+                        continue;
+                    }
+                    break;
+                }
+                System.out.print("이름을 입력해주세요: ");
+                String name = sc.nextLine();
+
+                Member member = new Member(id, regDate, loginId, loginPw, name);
+                members.add(member);
+
+                memberId++;
+            } else if (cmd.equals("article write")) {
                 System.out.println("==게시글 작성==");
                 int id = lastArticleId + 1;
                 String regDate = Util.getNow();
@@ -146,6 +187,15 @@ public class Main {
 
     }
 
+    private static boolean isJoinableLoginId(String loginId) {
+        for (Member member : members) {
+            if (member.getLoginId().equals(loginId)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static Article getArticleById(int id) {
 //        for(int i = 0 ; i < articles.size() ; i++) {
 //            Article article = articles.get(i);
@@ -168,60 +218,12 @@ public class Main {
         articles.add(new Article(2, "2024-06-02 12:12:12", "2024-06-02 12:12:12", "제목2", "내용2"));
         articles.add(new Article(3, "2024-07-02 12:12:12", "2024-07-02 12:12:12", "제목3", "내용3"));
     }
-}
 
-class Article {
-    private int id;
-    private String regDate;
-    private String updateDate;
-    private String title;
-    private String body;
-
-    public Article(int id, String regDate, String updateDate, String title, String body) {
-        this.id = id;
-        this.regDate = regDate;
-        this.updateDate = updateDate;
-        this.title = title;
-        this.body = body;
-    }
-
-    public String getRegDate() {
-        return regDate;
-    }
-
-    public String getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
+    public static void makeMemberTestData() {
+        System.out.println("회원 테스트 데이터 생성");
+        members.add(new Member(1, "2024-05-02 12:12:12", "qwe", "123", "name1"));
+        members.add(new Member(2, "2024-06-02 12:12:12", "asd", "123", "name2"));
+        members.add(new Member(3, "2024-07-02 12:12:12", "zxc", "123", "name3"));
     }
 }
+
