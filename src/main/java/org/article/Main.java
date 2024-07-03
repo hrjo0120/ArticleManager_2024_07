@@ -7,17 +7,14 @@ import java.util.Scanner;
 public class Main {
 
     static List<Article> articles = new ArrayList<>();
-    static Article foundArticle;
     static List<Member> members = new ArrayList<>();
-
-    static int id;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("==프로그램 시작==");
 
-        makeMemberTestData();
-        makeTestData();
+        articleMakeTestData();
+        memberMakeTestData();
 
         int memberId = 3;
         int lastArticleId = 3;
@@ -33,12 +30,11 @@ public class Main {
             if (cmd.equals("exit")) {
                 break;
             }
-
-            if (cmd.equals("join")) {
+            if (cmd.equals("member join")) {
                 System.out.println("== 회원 가입 ==");
                 int id = memberId + 1;
                 String regDate = Util.getNow();
-                String loginId = null;  //여기서 작성하는 이유? while문 안에 있으면 나중에 조립할때 문제가 생긴다.
+                String loginId = null;
                 // ID 중복확인 - 기존에 있는거랑 확인
                 while (true) {
                     System.out.print("아이디를 입력해주세요: ");
@@ -186,7 +182,6 @@ public class Main {
         sc.close();
 
     }
-
     private static boolean isJoinableLoginId(String loginId) {
         for (Member member : members) {
             if (member.getLoginId().equals(loginId)) {
@@ -212,18 +207,18 @@ public class Main {
         return null;
     }
 
-    public static void makeTestData() {
-        System.out.println("테스트 데이터 생성");
+    public static void articleMakeTestData() {
+        System.out.println("게시글 테스트 데이터 생성");
         articles.add(new Article(1, "2024-05-02 12:12:12", "2024-05-02 12:12:12", "제목1", "내용1"));
         articles.add(new Article(2, "2024-06-02 12:12:12", "2024-06-02 12:12:12", "제목2", "내용2"));
         articles.add(new Article(3, "2024-07-02 12:12:12", "2024-07-02 12:12:12", "제목3", "내용3"));
     }
 
-    public static void makeMemberTestData() {
+    public static void memberMakeTestData() {
         System.out.println("회원 테스트 데이터 생성");
-        members.add(new Member(1, "2024-05-02 12:12:12", "qwe", "123", "name1"));
-        members.add(new Member(2, "2024-06-02 12:12:12", "asd", "123", "name2"));
-        members.add(new Member(3, "2024-07-02 12:12:12", "zxc", "123", "name3"));
+        members.add(new Member(1, Util.getNow(), "qwe", "123", "name1"));
+        members.add(new Member(2, Util.getNow(), "asd", "123", "name2"));
+        members.add(new Member(3, Util.getNow(), "zxc", "123", "name3"));
     }
 }
 
