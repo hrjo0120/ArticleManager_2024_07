@@ -25,6 +25,10 @@ public class ArticleController extends Controller {
 
         switch (actionMethodName) {
             case "write":
+                if (isLogined() == false) {
+                    System.out.println("로그인 후에 이용해주세요.");
+                    return;
+                }
                 doWrite();
                 break;
             case "list":
@@ -34,9 +38,17 @@ public class ArticleController extends Controller {
                 showDetail();
                 break;
             case "modify":
+                if (isLogined() == false) {
+                    System.out.println("로그인 후에 이용해주세요.");
+                    return;
+                }
                 doModify();
                 break;
             case "delete":
+                if (isLogined() == false) {
+                    System.out.println("로그인 후에 이용해주세요.");
+                    return;
+                }
                 doDelete();
                 break;
             default:
@@ -173,6 +185,6 @@ public class ArticleController extends Controller {
         System.out.println("게시글 테스트 데이터 생성");
         articles.add(new Article(1, "2024-05-02 12:12:12", "2024-05-02 12:12:12", "제목1", "내용1"));
         articles.add(new Article(2, "2024-06-02 12:12:12", "2024-06-02 12:12:12", "제목2", "내용2"));
-        articles.add(new Article(3, "2024-07-02 12:12:12", "2024-07-02 12:12:12", "제목3", "내용3"));
+        articles.add(new Article(3, Util.getNow(), Util.getNow(), "제목3", "내용3"));
     }
 }
