@@ -24,24 +24,12 @@ public class MemberController extends Controller {
 
         switch (actionMethodName) {
             case "join":
-                if (isLogined()) {
-                    System.out.println("이미 로그인 되었습니다");
-                    return;
-                }
                 doJoin();
                 break;
             case "login":   // 해당 프로그램에 내가 누구인지 알게하는 행위
-                if (isLogined()) {
-                    System.out.println("이미 로그인 되었습니다");
-                    return;
-                }
                 doLogin();
                 break;
             case "logout":
-                if (!isLogined()) {
-                    System.out.println("이미 로그아웃 되었습니다.");
-                    return;
-                }
                 doLogout();
                 break;
             default:
